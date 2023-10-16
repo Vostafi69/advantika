@@ -15,16 +15,5 @@
 <h3>Иллюстрации выполненного задания</h3>
 
 ![Текст описания]([https://www.example.com/image.jpg](https://github.com/Vostafi69/advantika/blob/main/assets/1.png))
-<figure>
-  <img src='./assets/2.png' alr='Работа скрипта' />
- <figcaption>Вывод информации из csv файла</figcaption>
-</figure>
-<figure>
-  <img src='./assets/3.png' alr='Работа скрипта' />
- <figcaption>Обновление блоков</figcaption>
-</figure>
-<figure>
-  <img src='./assets/4.png' alr='Работа скрипта' />
- <figcaption>Обновление блоков</figcaption>
-</figure>
+
 
