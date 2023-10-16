@@ -17,7 +17,7 @@
   	}
 
   	if (!$file_last_update) {
-  		echo 'Файл last_update.txt не найден!';
+  		echo 'Файл lastUpdate.txt не найден!';
   		return;
   	}
 
