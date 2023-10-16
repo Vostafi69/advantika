@@ -18,14 +18,17 @@
   <img src='./assets/1.png' alr='Работа скрипта' />
  <figcaption>Вывод информации из csv файла</figcaption>
 </figure>
+<br>
 <figure>
   <img src='./assets/2.png' alr='Работа скрипта' />
  <figcaption>Вывод информации из csv файла</figcaption>
 </figure>
+<br>
 <figure>
   <img src='./assets/3.png' alr='Работа скрипта' />
  <figcaption>Обновление блоков</figcaption>
 </figure>
+<br>
 <figure>
   <img src='./assets/4.png' alr='Работа скрипта' />
  <figcaption>Обновление блоков</figcaption>
