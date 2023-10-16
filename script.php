@@ -1,61 +1,69 @@
 <?php
   function parse() {
-	require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-	CModule::IncludeModule('iblock');
-	$csv = $_SERVER["DOCUMENT_ROOT"]."/upload/myfile.csv";
-	$lines = file($csv);
-	$last_update_file = $_SERVER["DOCUMENT_ROOT"]."/upload/lastUpdate.txt";
-	$last = filemtime($csv);
+  	require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+  	require_once ($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/classes/general/csv_data.php");
+  	CModule::IncludeModule('iblock');
+  	$file_csv = new \Bitrix\Main\IO\File(\Bitrix\Main\Application::getDocumentRoot()."/upload/myfile.csv");
 
-	$fa = explode(';', file_get_contents($last_update_file));
-	if (trim($last) === trim($fa[0])) {
-		return;
-	}
+  	$csvFile = new CCSVData('R', true);
+  	$csvFile->LoadFile($_SERVER["DOCUMENT_ROOT"]."/upload/myfile.csv");
+  	$csvFile->SetDelimiter(';');
 
-	$el = new CIBlockElement;
-	$data = array();
-	foreach ($lines as $line_num => $line) {
-		if($line_num == 0) continue;
-		$arr_line = explode(';', $line);
-		$temp = array();
-		foreach ($arr_line as $line_item) {
-			$temp[] = $line_item;
-		}
-		$data[] = $temp;
-	}
-	$k = 1;
-	foreach($data as $line) {
-		$arLoadProductArray = Array(
-			"MODIFIED_BY"    => $USER->GetID(),
-			"IBLOCK_SECTION_ID" => false,
-			"IBLOCK_ID"      => 1,
-			"NAME"           => $line[2],
-			"ACTIVE"         => "Y",
-			"PREVIEW_TEXT"   => $line[1],
-			"DETAIL_TEXT"    => $line[3],
-		);
-		if (trim($fa[0]) === '') {
-			if($PRODUCT_ID = $el->Add($arLoadProductArray)) {
-				$last .= ';' . $PRODUCT_ID;
-				echo "New ID: ".$PRODUCT_ID;
-			}
-			else
-				echo "Error: ".$el->LAST_ERROR;
-		} else {
-			$PRODUCT_ID = $fa[$k++];
-			$last .= ';' . $PRODUCT_ID;
-			if($res = $el->Update($PRODUCT_ID, $arLoadProductArray)) {
-				echo "Update ID: ".$PRODUCT_ID;
-			}
-			else
-				echo "Error: ".$el->LAST_ERROR;
-		}
-	}
-	$last_update = fopen($last_update_file, 'w');
-	fwrite($last_update, $last);
-	fclose($last_update);
-}
+  	$file_last_update = new \Bitrix\Main\IO\File(\Bitrix\Main\Application::getDocumentRoot()."/upload/lastUpdate.txt");
 
-parse();
+  	if (!$file_csv) {
+  		echo 'Файл csv не найден!';
+  		return;
+  	}
 
+  	if (!$file_last_update) {
+  		echo 'Файл last_update.txt не найден!';
+  		return;
+  	}
 
+  	if ($file_csv->getModificationTime() == trim($file_last_update->getContents())) return;
+
+  	$arSelect = Array("ID", "NAME", "PREVIEW_TEXT", "DETAIL_TEXT");
+  	$arFilter = Array("IBLOCK_ID"=>1, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y");
+  	$el = new CIBlockElement;
+  	$res = $el::GetList(Array(), $arFilter, false, false, $arSelect);
+  	while ($arRes = $csvFile->Fetch()) {
+  		if ($ob = $res->GetNextElement()) {
+  			$arFields = $ob->GetFields();
+  			if ($arRes[1] != $arFields["NAME"] || $arRes[2] != $arFields["PREVIEW_TEXT"] || $arRes[3] != $arFields["DETAIL_TEXT"]) {
+  				$arLoadProductArray = Array(
+  					"MODIFIED_BY"    => $USER->GetID(),
+  					"IBLOCK_SECTION_ID" => false,
+  					"IBLOCK_ID"      => 1,
+  					"NAME"           => $arRes[1],
+  				);
+  				if ($arRes[2] != $arFields["PREVIEW_TEXT"])
+  					$arLoadProductArray["PREVIEW_TEXT"] = $arRes[2];
+  				if ($arRes[2] != $arFields["DETAIL_TEXT"])
+  					$arLoadProductArray["DETAIL_TEXT"] = $arRes[3];
+  				if($el->Update($arFields["ID"], $arLoadProductArray))
+  					echo "Update ID: ".$arFields["ID"];
+  				else
+  					echo "Error: ".$el->LAST_ERROR;
+  			}
+  		} else {
+  			$arLoadProductArray = Array(
+  				"MODIFIED_BY"    => $USER->GetID(),
+  				"IBLOCK_SECTION_ID" => false,
+  				"IBLOCK_ID"      => 1,
+  				"NAME"           => $arRes[1],
+  				"ACTIVE"         => "Y",
+  				"PREVIEW_TEXT"   => $arRes[2],
+  				"DETAIL_TEXT"    => $arRes[3],
+  			);
+  			if($PRODUCT_ID = $el->Add($arLoadProductArray))
+  				echo "New ID: ".$PRODUCT_ID;
+  			else
+  				echo "Error: ".$el->LAST_ERROR;
+  		}
+  	}
+
+  	$file_last_update->putContents($file_csv->getModificationTime());
+  }
+
+  parse();
