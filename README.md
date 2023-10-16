@@ -14,6 +14,24 @@
 
 <h3>Иллюстрации выполненного задания</h3>
 
-![Текст описания]([https://www.example.com/image.jpg](https://github.com/Vostafi69/advantika/blob/main/assets/1.png))
+<figure>
+  <img src='./assets/1.png' />
+ <figcaption>Работа скрипта</figcaption>
+</figure>
+
+<figure>
+  <img src='./assets/2.png' />
+ <figcaption>Работа скрипта</figcaption>
+</figure>
+
+<figure>
+  <img src='./assets/3.png' />
+ <figcaption>Работа скрипта</figcaption>
+</figure>
+
+<figure>
+  <img src='./assets/4.png' />
+ <figcaption>Работа скрипта</figcaption>
+</figure>
 
 
