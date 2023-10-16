@@ -13,4 +13,13 @@
 В ходе выполнения задания частые коммиты с небольшим описанием приветствуются.
 </p>
 
-<img src='./assets/1.png' />
+<h3>Иллюстрации выполненного задания</h3>
+
+<figure>
+  <img src='./assets/1.png' alr='Работа скрипта' />
+ <figcaption>Вывод информации из csv файла</figcaption>
+</figure>
+
+<img src='./assets/2.png' alr='Работа скрипта' />
+<img src='./assets/3.png' alr='Работа скрипта' />
+<img src='./assets/4.png' alr='Работа скрипта' />
