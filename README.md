@@ -1,5 +1,4 @@
-# advantika
-Тестовое задание
+<h1>Advantika. Тестовое задание</h1>
 
 <h2>Необходимо выполнить задание на платформе 1С-Битрикс Управление сайтом "Старт", используя стандартное api платформы.</h2>
 
@@ -19,7 +18,16 @@
   <img src='./assets/1.png' alr='Работа скрипта' />
  <figcaption>Вывод информации из csv файла</figcaption>
 </figure>
+<figure>
+  <img src='./assets/2.png' alr='Работа скрипта' />
+ <figcaption>Вывод информации из csv файла</figcaption>
+</figure>
+<figure>
+  <img src='./assets/3.png' alr='Работа скрипта' />
+ <figcaption>Обновление блоков</figcaption>
+</figure>
+<figure>
+  <img src='./assets/4.png' alr='Работа скрипта' />
+ <figcaption>Обновление блоков</figcaption>
+</figure>
 
-<img src='./assets/2.png' alr='Работа скрипта' />
-<img src='./assets/3.png' alr='Работа скрипта' />
-<img src='./assets/4.png' alr='Работа скрипта' />
