@@ -51,6 +51,7 @@
   			//Изменились ли поля
   			if (count($PROPS) === 0 && $arFields["NAME"] === $csvData[1] && $arFields["IBLOCK_SECTION_ID"] === $csvData[2] &&
   				$arFields["PREVIEW_TEXT"] === $csvData[3] && $arFields["DETAIL_TEXT"] === $csvData[4])
+            //Если поля и свойства не изминилсь - пропустить итерацию
   					continue;
 
   			//Массив обновленных данных
