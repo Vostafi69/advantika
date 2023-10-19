@@ -29,9 +29,4 @@
  <figcaption>Работа скрипта</figcaption>
 </figure>
 
-<figure>
-  <img src='./assets/4.png' />
- <figcaption>Работа скрипта</figcaption>
-</figure>
-
 
